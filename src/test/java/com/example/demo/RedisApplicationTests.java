@@ -22,7 +22,7 @@ public class RedisApplicationTests {
 
 	@Test
 	public void testAdd() {
-		redisTemplate.opsForValue().set("keyId","123456");
+		redisTemplate.opsForValue().set("keyId2","123456");
 	}
 
 	@Test
