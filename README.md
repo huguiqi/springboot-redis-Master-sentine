@@ -1,4 +1,4 @@
-# spring-boot-muiltSource
+# spring-boot-redis
 
 springboot + web + mybatis + h2 双数据源配置，支持分布式事务处理
 
@@ -55,3 +55,32 @@ windows:
 
 
 [我的springboot集成项目地址](https://github.com/huguiqi/springboot-redis.git)
+
+
+设置cacheManger的前缀：
+
+    @SuppressWarnings("rawtypes")
+    @Bean
+    public CacheManager cacheManager(RedisTemplate redisTemplate) {
+        RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
+        //设置缓存过期时间
+        //rcm.setDefaultExpiration(60);//秒
+        rcm.setUsePrefix(true);
+        rcm.setCachePrefix(new DefaultRedisCachePrefix("HGQ_"));
+        return rcm;
+    }
+    
+    
+    
+ 设置一个对象缓存：
+    
+    @Cacheable(value = "houseCache", key = "#city.toString()")
+        public House getHouse(String city) {
+            System.out.println("无缓存的时候调用这里---数据库查询");
+            return new House("绿城","100","长沙");
+        }
+        
+        
+ 得到的缓存key是这样的：
+        
+        
