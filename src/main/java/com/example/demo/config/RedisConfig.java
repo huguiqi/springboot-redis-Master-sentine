@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.subscribe.Receiver;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,9 +13,13 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by guiqi on 2017/8/3.
@@ -24,21 +29,21 @@ import java.lang.reflect.Method;
 @EnableCaching
 public class RedisConfig {
 
-    @Bean
-    public KeyGenerator keyGenerator() {
-        return new KeyGenerator() {
-            @Override
-            public Object generate(Object target, Method method, Object... params) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(target.getClass().getName());
-                sb.append(method.getName());
-                for (Object obj : params) {
-                    sb.append(obj.toString());
-                }
-                return sb.toString();
-            }
-        };
-    }
+//    @Bean
+//    public KeyGenerator keyGenerator() {
+//        return new KeyGenerator() {
+//            @Override
+//            public Object generate(Object target, Method method, Object... params) {
+//                StringBuilder sb = new StringBuilder();
+//                sb.append(target.getClass().getName());
+//                sb.append(method.getName());
+//                for (Object obj : params) {
+//                    sb.append(obj.toString());
+//                }
+//                return sb.toString();
+//            }
+//        };
+//    }
 
     @SuppressWarnings("rawtypes")
     @Bean
@@ -61,5 +66,35 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
+
+
+
+    @Bean
+    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+                                            MessageListenerAdapter listenerAdapter) {
+
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.addMessageListener(listenerAdapter, new PatternTopic("chat"));
+
+        return container;
+    }
+
+    @Bean
+    MessageListenerAdapter listenerAdapter(Receiver receiver) {
+        //注册消息监听者
+        return new MessageListenerAdapter(receiver, "receiveMessage");
+    }
+
+    @Bean
+    Receiver receiver(CountDownLatch latch) {
+        return new Receiver(latch);
+    }
+
+    @Bean
+    CountDownLatch latch() {
+        return new CountDownLatch(1);
+    }
+
 
 }
