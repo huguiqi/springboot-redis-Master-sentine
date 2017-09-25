@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.repository.PersonDataRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.List;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
