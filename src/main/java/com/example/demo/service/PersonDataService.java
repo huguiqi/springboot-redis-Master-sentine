@@ -18,9 +18,6 @@ import redis.clients.jedis.JedisPoolConfig;
 @Service
 public class PersonDataService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-
 
     @Cacheable(value = "houseCache", key = "#city.toString()")
     public House getHouse(String city) {
