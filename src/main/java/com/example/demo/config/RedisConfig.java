@@ -32,9 +32,6 @@ import java.util.concurrent.CountDownLatch;
 public class RedisConfig {
 
 
-//    private @Autowired
-//    RedisExpireProperties redisExpireProperties;
-
     @Bean
     public KeyGenerator keyGenerator() {
         return new KeyGenerator() {
