@@ -1,19 +1,12 @@
 package com.example.demo.config;
 
-import com.example.demo.config.property.RedisExpireProperties;
 import com.example.subscribe.Receiver;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.cache.CacheBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.cache.guava.GuavaCache;
-import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.DefaultRedisCachePrefix;
@@ -28,11 +21,7 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by guiqi on 2017/8/3.
@@ -63,7 +52,6 @@ public class RedisConfig {
     }
 
 
-
     @SuppressWarnings("rawtypes")
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
@@ -92,7 +80,6 @@ public class RedisConfig {
     JedisConnectionFactory jedisConnectionFactory() {
         return new JedisConnectionFactory();
     }
-
 
 
     @Bean
