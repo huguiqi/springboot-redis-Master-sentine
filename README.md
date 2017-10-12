@@ -507,4 +507,6 @@ Caused by: redis.clients.jedis.exceptions.JedisConnectionException: Unexpected e
    也就是说将redisTemplate的connectionFactory换成JedisConnectionFactory就一切ok了。
    
    
+   ## RedisTemplate和StringRedisTemplate的区别
+   
    
