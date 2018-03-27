@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.bean.House;
+import com.example.demo.repository.PersonDataRepository;
 import com.example.demo.service.PersonDataService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 @RunWith(SpringRunner.class)
