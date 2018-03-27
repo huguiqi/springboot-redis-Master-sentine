@@ -36,7 +36,8 @@ public class RedisApplicationTests {
 
 	@Test
 	public void testQuery(){
-		System.out.printf("redis get:"+redisTemplate.opsForValue().get("keyId"));
+
+		System.out.printf("redis get:"+redisTemplate.opsForValue().get("keyId2"));
 	}
 
 	@Test
@@ -47,9 +48,10 @@ public class RedisApplicationTests {
 		Assert.notNull(house,"不应该有空值");
 	}
 
+
+
 	@Test
 	public void testSubscribe() throws InterruptedException {
-
 
 		LOGGER.info("Sending message...");
 

@@ -1,0 +1,9 @@
+spring:
+  redis:
+     expire-map:
+        user-cache-24hrs: 86400
+        test-cache-120s: 120
+#  cache:
+#  cache-names: user-cache-24hrs
+#  guava:
+#  spec: maximumSize=500,expireAfterWrite=600s
