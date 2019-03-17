@@ -1,0 +1,41 @@
+version: '3'
+services:
+    master:
+        image: registry.cn-shanghai.aliyuncs.com/rios/redis
+        container_name: master
+        command: /bin/bash -c "chmod 644 /usr/local/etc/redis/redis.conf && redis-server /usr/local/etc/redis/redis.conf"
+        volumes:
+            - ./master_data:/data
+            - ./redis-master.conf:/usr/local/etc/redis/redis.conf
+        ports:
+          - "6379:6379"
+        restart: always
+    slave6380:
+        image: registry.cn-shanghai.aliyuncs.com/rios/redis
+        container_name: slave01
+        ports:
+          - "6380:6379"
+        restart: always
+        command: /bin/bash -c "sleep 2 && redis-server --slaveof master 6379"
+        volumes:
+            - ./slave01_data:/data
+            - ./redis-slave.conf:/usr/local/etc/redis/redis.conf
+        depends_on: 
+          - master
+    redis-sentinel:
+        image: registry.cn-shanghai.aliyuncs.com/rios/redis
+        container_name: redis-sentinel
+        ports:
+          - "6382:6379"
+        restart: always
+        command: /bin/bash -c "sleep 2 && chmod 644 /etc/redis/sentinel.conf && redis-sentinel /etc/redis/sentinel.conf"
+        volumes:
+            - ./sentinel_data:/data
+            - ./redis-sentinel.conf:/etc/redis/sentinel.conf
+        links: 
+          - master
+
+networks:
+    default:
+      external:
+          name: riosNetwork

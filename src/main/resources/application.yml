@@ -1,0 +1,36 @@
+server:
+  port: @server.port@
+
+# REDIS (RedisProperties)
+spring:
+#  profiles:
+#      active: @profiles.active@
+
+
+
+bzy:
+      jedis:
+            master:
+                      host: test.riosclub.com
+                      port: 6379
+                      password: rios123456
+                      timeout: 1000
+                      database: 1
+                      pool:
+                          minIdle: 10
+                          maxIdle: 100
+                          maxActive: 50
+                          maxWait: 3000
+                          maxTotal: 300
+            slave1:
+                      host: slave6380
+                      port: 6379
+                      password: rios123456
+            slave2:
+                      host: slave6381
+                      port: 6379
+                      password: rios123456
+            sentinel:
+                      host: redis-sentinel
+                      port: 6379
+                      password: 123456
