@@ -58,11 +58,15 @@ docker-compose:
 构建java容器：
 
     mvn clean package docker:build
-     
+
+![paste image](http://blog.huguiqi.com/1552815327766vzrd4sag.png?imageslim)     
      
 通过镜像启动容器：
 
     docker run --name=appredis --network riosNetwork -p 9999:8888 -d e60534acc998
+    
+
+     ![paste image](http://blog.huguiqi.com/1552815969221h6qhh35v.png?imageslim)
 
 [参考文章](https://juejin.im/post/5b7d226a6fb9a01a1e01ff64)
    
