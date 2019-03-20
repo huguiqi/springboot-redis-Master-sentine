@@ -70,5 +70,18 @@ docker-compose:
  ![paste image](http://blog.huguiqi.com/1552815969221h6qhh35v.png?imageslim)
 
 [参考文章](https://juejin.im/post/5b7d226a6fb9a01a1e01ff64)
-   
+
+
+## 实现redis消息队列(手动消费)
+
+[要实现的流程](https://www.processon.com/view/link/5c8f3a96e4b0ab74ecdbc8de)
+
+
+[redis实现队列原理](https://www.kancloud.cn/hfpp2012/redisbook/467188)
+
+
+现在要做的就是，设计一个对象，将它作为list的中的对象元素push进去，而redis里的数据基本上都是用String存储，那就将对象转成json字符串(需要将object转成字符流)存到redis，取出来时将string再转成object
+
+
+具体看代码 。。。。。。
    

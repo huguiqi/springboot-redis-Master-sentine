@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -18,7 +19,7 @@ public class TestCacheController {
 
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping
     public ResponseEntity<Map> create() {
@@ -28,6 +29,12 @@ public class TestCacheController {
     @GetMapping("/{name}")
     public ResponseEntity<UserInfo> getUserInfo(@PathVariable("name") String name) {
         return ResponseEntity.ok(userService.getUserInfo(name));
+    }
+
+    @GetMapping("/createQueue")
+    public ResponseEntity<List<UserInfo>> createQueue(@RequestParam("key") String key) {
+        List<UserInfo> list =userService.createQueue(key);
+        return ResponseEntity.ok(list);
     }
 }
 

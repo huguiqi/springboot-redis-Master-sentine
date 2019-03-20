@@ -18,4 +18,8 @@ public class UserInfo implements Serializable{
     private String sex;
     private String age;
     private String size;
+
+    private Integer gradeLevel;
+
+
 }
