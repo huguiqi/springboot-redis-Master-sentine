@@ -6,6 +6,7 @@ import com.wh.mobile.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -46,6 +47,17 @@ public class UserService {
         for (int i = 0; i < leg; i++) {
              UserInfo userInfo = redisDao.popLast(test,UserInfo.class);
             System.out.println(userInfo.getName());
+        }
+    }
+
+    @Transactional
+    public void pushForTrasation(String key,boolean exceptionEnable) {
+        for (int i = 0; i < 10; i++) {
+            UserInfo userInfo = new UserInfo("小黑"+i,"男","19","18"+i,i);
+            redisDao.push(key, userInfo,2l);
+            if (exceptionEnable && i==9){
+                throw new RuntimeException("插入时数据格式不正确,row_num:"+i);
+            }
         }
     }
 }

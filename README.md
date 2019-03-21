@@ -84,4 +84,20 @@ docker-compose:
 
 
 具体看代码 。。。。。。
+
+
+## 配置redis支持事务
+
+[参考文章](https://www.jianshu.com/p/c9f5718e58f0)
+
+请看UserServiceTest.java
+
+
+1. 添加jdbc依赖
+2. 必须配置dataSource
+3. RedisTemplate 配置开启事务
+4. 配合spring支持注解事务
+
+
+
    

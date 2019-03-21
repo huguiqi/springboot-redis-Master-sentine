@@ -1,15 +1,13 @@
 package com.wh.mobile.dao;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.wh.mobile.model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -279,7 +277,9 @@ public class RedisDao <T>{
      */
     public T popHead(String key,Class<T> tClass) {
         String jsonObj = (String) redisTemplate.opsForList().leftPop(key);
-        return JSONObject.parseObject(jsonObj,tClass);
+        if (StringUtils.hasText(jsonObj))
+            return JSONObject.parseObject(jsonObj,tClass);
+        return null;
     }
 
 
