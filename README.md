@@ -99,5 +99,13 @@ docker-compose:
 4. 配合spring支持注解事务
 
 
+在RedisConfig.java中添加：
+
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource) throws SQLException {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+
 
    
